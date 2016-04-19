@@ -1,0 +1,51 @@
+﻿@model Cts.csw.Models.TestCodeViewModel
+
+@{
+    ViewBag.Title = "TestCode";
+}
+
+<h2>TestCode</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>TestCodeViewModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.TheCode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.TheCode, new { htmlAttributes = new { @class = "form-control"}, rows = 25, cols = 80 })
+                @Html.ValidationMessageFor(model => model.TheCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Go" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+@if (Model.Results != null)
+{
+    <h4>Results</h4>
+
+    foreach (string result in Model.Results)
+    {
+    <b>@result</b><br/>
+    }
+}
+
+<div>
+    @Html.ActionLink("Back Home", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

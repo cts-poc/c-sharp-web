@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cts.csw.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -25,6 +26,37 @@ namespace Cts.csw.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult TestCode()
+        {
+            TestCodeViewModel vm = new TestCodeViewModel();
+            vm.TheCode = @"
+using System;
+
+    namespace Cts
+    {
+        public class Writer
+        {
+            public void Write(string message)
+            {
+                Console.Write(message);
+                Console.WriteLine("" has length "" + message.Length);
+            }
+        }
+    }";
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult TestCode(TestCodeViewModel vm)
+        {
+            CSharpRunner runner = new CSharpRunner();
+            string[] input = new string[] { "Test CTS", "Hello World", "Output 3" };
+
+            vm.Results = new List<string>(runner.RunCSharp(vm.TheCode, input));
+
+            return View(vm);
         }
     }
 }

@@ -31,20 +31,24 @@ namespace Cts.csw.Controllers
         public ActionResult TestCode()
         {
             TestCodeViewModel vm = new TestCodeViewModel();
-            vm.TheCode = @"
-using System;
+            vm.TheCode = @"using System; 
+using System.IO;
+//Add any additional libraries you may need
 
-    namespace Cts
+namespace Cts
+{
+    public class Program
     {
-        public class Writer
+        public void Run()
         {
-            public void Write(string message)
-            {
-                Console.Write(message);
-                Console.WriteLine("" has length "" + message.Length);
-            }
+            Console.WriteLine(""Hello World!"");
+            string input = Console.ReadLine();
+            Console.WriteLine(""Got this input: "" + input);
+            string input2 = Console.ReadLine();
+            Console.WriteLine(""Got this input second: "" + input2);
         }
-    }";
+    }
+}";
             return View(vm);
         }
 

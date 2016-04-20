@@ -30,11 +30,23 @@
             </div>
     }
 
+    <form>
+        <div class="form-group row">
+            <label for="myTest" class="control-label col-md-12">Awesomplete Autocomplete Test</label>
+            <div class="col-md-12">
+                <textarea name="myTest" rows="6" id="myTest" class="form-control awesomplete col-md-12" data-list="This, Is, Test, Everyone"></textarea>
+            </div>
+        </div>
+    </form>
+
 
     @if (Model.Results != null)
     {
-        <h4>Results</h4>
+        <h4>Output</h4>
 
+        <form>
+            <input type="text" name="results" class="form-control" />
+        </form>
         foreach (string result in Model.Results)
         {
             <b>@result</b><br />
@@ -45,6 +57,22 @@
         @Html.ActionLink("Back Home", "Index")
     </div>
 </div>
+
+<script type="text/javascript" src="https://cdn.rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.min.js"></script>
+<script>
+    var input = document.getElementById("myTest");
+
+    var awesomplete = new Awesomplete(input, {
+        filter: function (text, input) {
+            return Awesomplete.FILTER_CONTAINS(text, input.match(/[^,\(\.]*$/)[0]);
+        },
+
+        replace: function (text) {
+            var before = this.input.value.match(/^.+[,\.][\s\.\(]*|/)[0];
+            this.input.value = before + text + ", ";
+        }
+    });
+</script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

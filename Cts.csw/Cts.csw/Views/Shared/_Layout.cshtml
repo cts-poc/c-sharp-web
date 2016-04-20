@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.css" />
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
@@ -40,6 +41,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("https://cdn.rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.min.js")
     @RenderSection("scripts", required: false)
 </body>
 </html>

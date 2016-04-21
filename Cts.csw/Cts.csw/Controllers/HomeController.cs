@@ -56,9 +56,12 @@ namespace Cts
         public ActionResult TestCode(TestCodeViewModel vm)
         {
             CSharpRunner runner = new CSharpRunner();
-            string[] input = new string[] { "Test CTS", "Hello World", "Output 3" };
 
-            vm.Results = new List<string>(runner.RunCSharp(vm.TheCode, input));
+            vm.AddTestCases();
+
+            //string[] input = new string[] { "Test CTS", "Hello World", "Output 3" };
+
+            vm = runner.RunCSharp(vm);
 
             return View(vm);
         }

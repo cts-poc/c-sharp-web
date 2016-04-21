@@ -8,13 +8,17 @@ namespace Cts.csw.Models
     public class TestCodeViewModel
     {
         public string TheCode { get; set; }
-        public List<string> Inputs { get; set; }
-        public List<string> Results { get; set; }
+        public List<TestCase> TestCases { get; set; }
+        public string ErrorMessage { get; set; }
 
         public TestCodeViewModel()
         {
-            Inputs = new List<string>();
-            Results = new List<string>();
+            
+        }
+
+        public void AddTestCases()
+        {
+            TestCases = TestCase.GetTestCases();
         }
     }
 }

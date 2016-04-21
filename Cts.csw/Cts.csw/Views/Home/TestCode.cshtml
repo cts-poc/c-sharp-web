@@ -1,34 +1,67 @@
 ﻿@model Cts.csw.Models.TestCodeViewModel
 
 @{
-    ViewBag.Title = "TestCode";
+    ViewBag.Title = "Test Code";
 }
 
-
-
 <div class="col-md-12">
-    <h2>TestCode</h2>
-    <h4>TestCodeViewModel</h4>
+    <h2>Your Test Code</h2>
     <hr />
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group row">
-                @Html.LabelFor(model => model.TheCode, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-12">
-                    @Html.TextAreaFor(model => model.TheCode, new { @class = "form-control", rows = 25, style="width:100%"})
-                </div>
-                @Html.ValidationMessageFor(model => model.TheCode, "", new { @class = "text-danger" })
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group row">
+            @Html.LabelFor(model => model.TheCode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.TextAreaFor(model => model.TheCode, new { @class = "form-control", rows = 25, style="width:100%"})
             </div>
+            @Html.ValidationMessageFor(model => model.TheCode, "", new { @class = "text-danger" })
+        </div>
 
-            <div class="form-group row">
-                <div class="col-md-1">
-                    <input type="submit" value="Go" class="btn btn-default" />
-                </div>
+        <div class="form-group row">
+            <div class="col-md-1">
+                <input type="submit" value="Go" class="btn btn-default" />
             </div>
+        </div>
     }
+
+    @if (Model.TestCases != null)
+    {
+        @*  We have run the code at least once  *@
+    if (!Model.ErrorMessage.IsEmpty())
+    {
+            @* compilation error *@
+            <h4>ERROR</h4>
+            <p>@Html.Raw(Model.ErrorMessage.Replace("\n", "<br />"))</p>
+    }
+    else
+    {
+            <h4>Output</h4>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Expected Result</th>
+                        <th>Actual Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int c = 0; c < Model.TestCases.Count; c++)
+                    {
+                        <tr>
+                            <td>@Html.Raw(Model.TestCases[c].ExpectedOutput.Replace("\n", "<br/>"))</td>
+                            <td>@Html.Raw(Model.TestCases[c].ActualOutput.Replace("\n", "<br/>"))</td>
+                        </tr>
+                    }
+                    
+                </tbody>
+            </table>
+        }
+    }
+
+    <br />
 
     <form>
         <div class="form-group row">
@@ -38,25 +71,10 @@
             </div>
         </div>
     </form>
-
-
-    @if (Model.Results != null)
-    {
-        <h4>Output</h4>
-
-        <form>
-            <input type="text" name="results" class="form-control" />
-        </form>
-        foreach (string result in Model.Results)
-        {
-            <b>@result</b><br />
-        }
-    }
-
-    <div>
-        @Html.ActionLink("Back Home", "Index")
-    </div>
 </div>
+
+
+
 
 <script type="text/javascript" src="https://cdn.rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.min.js"></script>
 <script>

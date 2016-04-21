@@ -81,6 +81,7 @@ namespace Cts.csw
                         Console.SetIn(r);
 
                         //TODO: verify that the method exists before invoking it, and throw appropriate error if it's missing
+                        // sample code here: http://stackoverflow.com/questions/14479074/c-sharp-reflection-load-assembly-and-invoke-a-method-if-it-exists
                         type.InvokeMember("Run"
                             , BindingFlags.Default | BindingFlags.InvokeMethod
                             , null

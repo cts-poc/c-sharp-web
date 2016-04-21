@@ -43,6 +43,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
+                        <th>Test Case Number</th>
                         <th>Expected Result</th>
                         <th>Actual Result</th>
                     </tr>
@@ -51,6 +52,7 @@
                     @for (int c = 0; c < Model.TestCases.Count; c++)
                     {
                         <tr>
+                            <td>@(c+1)</td>
                             <td>@Html.Raw(Model.TestCases[c].ExpectedOutput.Replace("\n", "<br/>"))</td>
                             <td>@Html.Raw(Model.TestCases[c].ActualOutput.Replace("\n", "<br/>"))</td>
                         </tr>
@@ -95,7 +97,20 @@
 <script type="text/javascript" src="~/Scripts/clike.js"></script>
 
 <script type="text/javascript">
-    var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("TheCode"));
+    var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("TheCode"), {
+        parserfile: ["/Scripts/tokenizecsharp.js", "/Scripts/parsecsharp.js"],
+        stylesheet: "/Content/csharpcolors.css",
+        path: "/Scripts/",
+        height: "600px",
+        lineNumbers: true,
+        mode: "text/x-csharp",
+        matchBrackets: true,
+        indentUnit: 4
+    });
+
+    //doesn't work, but it might someday
+    var mac = CodeMirror.keyMap.default == CodeMirror.keyMap.macDefault;
+    CodeMirror.keyMap.default[(mac ? "Cmd" : "Ctrl") + "-Space"] = "autocomplete";
 
 </script>
 @section Scripts {

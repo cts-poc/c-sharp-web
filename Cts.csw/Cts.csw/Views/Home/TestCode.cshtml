@@ -93,24 +93,58 @@
         }
     });
 </script>
+
 <script type="text/javascript" src="~/Scripts/codemirror.js"></script>
+<script type="text/javascript" src="~/Scripts/show-hint.js"></script>
 <script type="text/javascript" src="~/Scripts/clike.js"></script>
 
 <script type="text/javascript">
-    var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("TheCode"), {
-        parserfile: ["/Scripts/tokenizecsharp.js", "/Scripts/parsecsharp.js"],
-        stylesheet: "/Content/csharpcolors.css",
-        path: "/Scripts/",
-        height: "600px",
-        lineNumbers: true,
-        mode: "text/x-csharp",
-        matchBrackets: true,
-        indentUnit: 4
-    });
+    
+    window.onload = function () {
+        function getHints(cm, options) {
+            var cur = cm.getCursor();
+            var result = ['just', 'a', 'test'];
+            return {
+                list: result,
+                from: cur,
+                to: cur
+            };
+        }
 
-    //doesn't work, but it might someday
-    var mac = CodeMirror.keyMap.default == CodeMirror.keyMap.macDefault;
-    CodeMirror.keyMap.default[(mac ? "Cmd" : "Ctrl") + "-Space"] = "autocomplete";
+        function insertStr(cm, pos, str, option_str) {
+            cm.replaceRange(str, pos, null, option_str);
+            cm.setCursor({ line: pos.line, ch: pos.ch + str.length });
+        }
+
+        var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("TheCode"), {
+            parserfile: ["/Scripts/tokenizecsharp.js", "/Scripts/parsecsharp.js"],
+            stylesheet: "/Content/csharpcolors.css",
+            path: "/Scripts/",
+            height: "600px",
+            lineNumbers: true,
+            mode: "text/x-csharp",
+            matchBrackets: true,
+            indentUnit: 4,
+            extraKeys: {
+                Ctrl: function (cm) {
+                    insertStr(cm, cm.getCursor(), ' ');
+                    CodeMirror.showHint(cm, getHints);
+                },
+                Cmd: function (cm) {
+                    insertStr(cm, cm.getCursor(), ' ');
+                    CodeMirror.showHint(cm, getHints);
+                }
+            }
+        });
+
+        CodeMirror.commands.autocomplete = function (cm) {
+            CodeMirror.showHint(cm, getHints);
+        }
+
+
+    };
+
+
 
 </script>
 @section Scripts {

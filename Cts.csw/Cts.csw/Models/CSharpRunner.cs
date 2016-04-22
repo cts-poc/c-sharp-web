@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Cts.csw
 {
@@ -56,7 +57,9 @@ namespace Cts.csw
 
                     foreach (Diagnostic diagnostic in failures)
                     {
-                        vm.ErrorMessage += diagnostic.Id + ": " + diagnostic.GetMessage() + "\n";
+                        string sPattern = @"\((\d+),";
+                        var lineNumber = (Regex.Match(diagnostic.ToString(), sPattern)).Groups[1].Value;
+                        vm.ErrorMessage += "Line " + lineNumber + ": " + diagnostic.Id + ": " + diagnostic.GetMessage() + "\n";
                     }
                     return vm;
                 }

@@ -58,8 +58,11 @@ namespace Cts.csw
                     foreach (Diagnostic diagnostic in failures)
                     {
                         string sPattern = @"\((\d+),";
-                        var lineNumber = (Regex.Match(diagnostic.ToString(), sPattern)).Groups[1].Value;
-                        vm.ErrorMessage += "Line " + lineNumber + ": " + diagnostic.Id + ": " + diagnostic.GetMessage() + "\n";
+                        var lineNumber = int.Parse((Regex.Match(diagnostic.ToString(), sPattern)).Groups[1].Value);
+                        CodeError error = new CodeError(lineNumber, diagnostic.Id, diagnostic.GetMessage());
+                        vm.AddError(error);
+
+                        vm.ErrorMessage += "Line: " + error.LineNumber + "\nID: " + error.ID + "\nMessage: " + error.Message + "\n\n";
                     }
                     return vm;
                 }

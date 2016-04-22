@@ -126,12 +126,12 @@
             matchBrackets: true,
             indentUnit: 4,
             extraKeys: {
-                Ctrl: function (cm) {
-                    insertStr(cm, cm.getCursor(), ' ');
+                ".": function (cm) {
+                    insertStr(cm, cm.getCursor(), '.');
                     CodeMirror.showHint(cm, getHints);
                 },
                 Cmd: function (cm) {
-                    insertStr(cm, cm.getCursor(), ' ');
+                    insertStr(cm, cm.getCursor(), '');
                     CodeMirror.showHint(cm, getHints);
                 }
             }
@@ -141,6 +141,26 @@
             CodeMirror.showHint(cm, getHints);
         }
 
+        function highlightLine(lineNumber) {
+
+            //Line number is zero based index
+            var actualLineNumber = lineNumber - 1;
+
+            //Set line CSS class to the line number & affecting the background of the line with the css class of line-error
+            myCodeMirror.addLineClass(actualLineNumber, 'background', 'line-error');
+        }
+
+        @if (Model.ErrorList.Count() > 0 )
+        {
+
+            foreach (var error in Model.ErrorList)
+            {
+                <text>
+        highlightLine(@error.LineNumber);
+                </text>
+            }
+
+        }
 
     };
 

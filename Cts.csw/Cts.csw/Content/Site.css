@@ -22,3 +22,8 @@ select,
 textarea {
     max-width: 100%;
 }
+
+.line-error {
+    background: #FBC2C4;
+    color: #8a1f11;
+}

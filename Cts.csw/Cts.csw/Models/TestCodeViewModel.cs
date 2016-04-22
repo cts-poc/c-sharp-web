@@ -10,15 +10,21 @@ namespace Cts.csw.Models
         public string TheCode { get; set; }
         public List<TestCase> TestCases { get; set; }
         public string ErrorMessage { get; set; }
+        public List<CodeError> ErrorList { get; set; }
 
         public TestCodeViewModel()
         {
-            
+            ErrorList = new List<CodeError>();
         }
 
         public void AddTestCases()
         {
             TestCases = TestCase.GetTestCases();
+        }
+
+        public void AddError(CodeError error)
+        {
+            ErrorList.Add(error);
         }
     }
 }

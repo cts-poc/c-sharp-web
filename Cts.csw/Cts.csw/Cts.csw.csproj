@@ -214,6 +214,7 @@
     <Compile Include="Models\CodeError.cs" />
     <Compile Include="Models\CSharpRunner.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Intelliscents.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\TestCase.cs" />
     <Compile Include="Models\TestCodeViewModel.cs" />

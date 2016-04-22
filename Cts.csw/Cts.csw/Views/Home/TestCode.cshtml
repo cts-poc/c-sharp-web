@@ -4,6 +4,8 @@
     ViewBag.Title = "Test Code";
 }
 
+@using Cts.csw.Models;
+
 <div class="col-md-12">
     <h2>Your Test Code</h2>
     <hr />
@@ -65,34 +67,16 @@
 
     <br />
 
-    <form>
-        <div class="form-group row">
-            <label for="myTest" class="control-label col-md-12">Awesomplete Autocomplete Test</label>
-            <div class="col-md-12">
-                <textarea name="myTest" rows="6" id="myTest" class="form-control awesomplete col-md-12" data-list="This, Is, Test, Everyone"></textarea>
-            </div>
-        </div>
-    </form>
 </div>
 
 
 
 
-<script type="text/javascript" src="https://cdn.rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.min.js"></script>
-<script>
-    var input = document.getElementById("myTest");
 
-    var awesomplete = new Awesomplete(input, {
-        filter: function (text, input) {
-            return Awesomplete.FILTER_CONTAINS(text, input.match(/[^,\(\.]*$/)[0]);
-        },
 
-        replace: function (text) {
-            var before = this.input.value.match(/^.+[,\.][\s\.\(]*|/)[0];
-            this.input.value = before + text + ", ";
-        }
-    });
-</script>
+
+
+
 
 <script type="text/javascript" src="~/Scripts/codemirror.js"></script>
 <script type="text/javascript" src="~/Scripts/show-hint.js"></script>
@@ -103,7 +87,7 @@
     window.onload = function () {
         function getHints(cm, options) {
             var cur = cm.getCursor();
-            var result = ['just', 'a', 'test'];
+            var result = @Html.Raw(Json.Encode(Intelliscents.ShowMethods(typeof(Console))));
             return {
                 list: result,
                 from: cur,

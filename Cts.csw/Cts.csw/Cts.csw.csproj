@@ -216,6 +216,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Intelliscents.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\SuggestionViewModel.cs" />
     <Compile Include="Models\TestCase.cs" />
     <Compile Include="Models\TestCodeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

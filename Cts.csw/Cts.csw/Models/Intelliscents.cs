@@ -36,7 +36,11 @@ namespace Cts.csw.Models
 
             foreach (var assembly in assemblies)
             {
-                type = assembly.GetTypes().Where(t => t.Name == typeString).First();
+                var typeResults = assembly.GetTypes().Where(t => t.Name == typeString);
+                if (typeResults.Count() > 0)
+                {
+                    type = typeResults.First();
+                }
                 if (type != null)
                 {
                     output = type.GetMethods().OrderBy(method => method.Name).GroupBy(method => method.Name).Select(group => group.First().Name).ToList();

@@ -49,6 +49,7 @@ namespace Cts
         }
     }
 }";
+            vm.CurrentWord = "Console";
             return View(vm);
         }
 
@@ -73,13 +74,20 @@ namespace Cts
             return View(vm);
         }
 
-        public List<String> GetSuggestions(String currentWord)
+        public ActionResult UpdateSuggestions(String currentWord)
         {
-            List<String> results = new List<String>();
-            results.Add("cat");
-            results.Add("dog");
-            results.Add("fish");
-            return results;
+            //List<String> results = new List<String>();
+            //results.Add("cat");
+            //results.Add("dog");
+            //results.Add("fish");
+
+            List<String> results = Intelliscents.ShowMethods(currentWord);
+
+            SuggestionViewModel vm = new SuggestionViewModel();
+            vm.Suggestions = results;
+            vm.CurrentWord = currentWord;
+
+            return PartialView("_Suggestions", vm);
         }
     }
 }

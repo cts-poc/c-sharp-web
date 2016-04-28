@@ -1,95 +1,19 @@
-﻿@model Cts.csw.Models.TestCodeViewModel
+﻿@model SuggestionViewModel
 @using Cts.csw.Models;
 
-<script type="text/javascript" src="~/Scripts/codemirror.js"></script>
-<script type="text/javascript" src="~/Scripts/show-hint.js"></script>
-<script type="text/javascript" src="~/Scripts/clike.js"></script>
+@*
 
-<script type="text/javascript">
+    var result = @Html.Raw(Json.Encode(Intelliscents.ShowMethods(Model.CurrentWord)));*@
 
-    window.onload = function () {
-        function getHints(cm, options) {
-            var cur = cm.getCursor();
-            var test = getCurrentWord(cm);
-            var result = @Html.Raw(Json.Encode(Intelliscents.ShowMethods("Console")));
-            var result2 = ['dog', 'cat']
-            return {
-                list: result,
-                from: cur,
-                to: cur
-            };
-        }
-
-        function getCurrentWord(cm) {
-            var word = cm.findWordAt(cm.getCursor());
-            return (cm.getRange(word.anchor, word.head));
-        }
-
-        function insertStr(cm, pos, str, option_str) {
-            cm.replaceRange(str, pos, null, option_str);
-            cm.setCursor({ line: pos.line, ch: pos.ch + str.length });
-        }
-
-        var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("TheCode"), {
-            parserfile: ["/Scripts/tokenizecsharp.js", "/Scripts/parsecsharp.js"],
-            stylesheet: "/Content/csharpcolors.css",
-            path: "/Scripts/",
-            height: "600px",
-            lineNumbers: true,
-            mode: "text/x-csharp",
-            matchBrackets: true,
-            indentUnit: 4,
-            extraKeys: {
-                ".": function (cm) {
-                    updateCurrentWord(getCurrentWord(cm));
-                    insertStr(cm, cm.getCursor(), '.');
-                    CodeMirror.showHint(cm, getHints);
-
-                },
-                Cmd: function (cm) {
-                    insertStr(cm, cm.getCursor(), '');
-                    CodeMirror.showHint(cm, getHints);
-                }
-            }
-        });
-
-        CodeMirror.commands.autocomplete = function (cm) {
-            CodeMirror.showHint(cm, getHints);
-        }
-
-        function highlightLine(lineNumber) {
-
-            //Line number is zero based index
-            var actualLineNumber = lineNumber - 1;
-
-            //Set line CSS class to the line number & affecting the background of the line with the css class of line-error
-            myCodeMirror.addLineClass(actualLineNumber, 'background', 'line-error');
-        }
-
-        function updateCurrentWord(val)
-        {
-            document.getElementById('CurrentWord').value = val;
-        }
-
-        @if (Model.ErrorList.Count() > 0 )
-        {
-
-            foreach (var error in Model.ErrorList)
-            {
-                <text>
-        highlightLine(@error.LineNumber);
-                </text>
-            }
-
-        }
-
-
-
+<script>
+    function getHints(cm, options) {
+        var cur = cm.getCursor();
+        var result = @Html.Raw(Json.Encode(Model.Suggestions));
+        var result2 = ['dog', 'cat']
+        return {
+            list: result,
+            from: cur,
+            to: cur
+        };
     };
-
-
-
 </script>
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

@@ -5,6 +5,7 @@
 }
 
 @using Cts.csw.Models;
+@using System.Reflection;
 
 <div class="col-md-12">
     <h2>Your Test Code</h2>
@@ -78,6 +79,7 @@
 
 
 
+
 <script type="text/javascript" src="~/Scripts/codemirror.js"></script>
 <script type="text/javascript" src="~/Scripts/show-hint.js"></script>
 <script type="text/javascript" src="~/Scripts/clike.js"></script>
@@ -87,12 +89,19 @@
     window.onload = function () {
         function getHints(cm, options) {
             var cur = cm.getCursor();
-            var result = @Html.Raw(Json.Encode(Intelliscents.ShowMethods(typeof(Console))));
+            var test = getCurrentWord(cm);
+            var result = @Html.Raw(Json.Encode(Intelliscents.ShowMethods("Console")));
+            var result2 = ['dog', 'cat']
             return {
                 list: result,
                 from: cur,
                 to: cur
             };
+        }
+
+        function getCurrentWord(cm) {
+            var word = cm.findWordAt(cm.getCursor());
+            return (cm.getRange(word.anchor, word.head));
         }
 
         function insertStr(cm, pos, str, option_str) {
@@ -111,8 +120,10 @@
             indentUnit: 4,
             extraKeys: {
                 ".": function (cm) {
+                    
                     insertStr(cm, cm.getCursor(), '.');
                     CodeMirror.showHint(cm, getHints);
+
                 },
                 Cmd: function (cm) {
                     insertStr(cm, cm.getCursor(), '');

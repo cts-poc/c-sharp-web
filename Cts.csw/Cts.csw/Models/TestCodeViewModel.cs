@@ -11,6 +11,8 @@ namespace Cts.csw.Models
         public List<TestCase> TestCases { get; set; }
         public string ErrorMessage { get; set; }
         public List<CodeError> ErrorList { get; set; }
+        public List<String> Suggestions { get; set; }
+        public String CurrentWord { get; set; }
 
         public TestCodeViewModel()
         {

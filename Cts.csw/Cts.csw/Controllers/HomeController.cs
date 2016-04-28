@@ -55,15 +55,31 @@ namespace Cts
         [HttpPost]
         public ActionResult TestCode(TestCodeViewModel vm)
         {
+
+            //List<String> list = Intelliscents.ShowMethods(vm.CurrentWord);
+
+            //vm.Suggestions = list;
+
             CSharpRunner runner = new CSharpRunner();
 
+            //TEMP Commented out
             vm.AddTestCases();
 
             //string[] input = new string[] { "Test CTS", "Hello World", "Output 3" };
 
+            //TEMP Commented Out
             vm = runner.RunCSharp(vm);
 
             return View(vm);
+        }
+
+        public List<String> GetSuggestions(String currentWord)
+        {
+            List<String> results = new List<String>();
+            results.Add("cat");
+            results.Add("dog");
+            results.Add("fish");
+            return results;
         }
     }
 }

@@ -26,10 +26,10 @@ namespace Cts.csw
             MetadataReference[] references = new MetadataReference[]
             {
                 //TODO de-dupe this list
-                MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
-                MetadataReference.CreateFromFile(typeof(Enumerable).Assembly.Location),
-                MetadataReference.CreateFromFile(typeof(System.Object).Assembly.Location),
-                MetadataReference.CreateFromFile(typeof(System.String).Assembly.Location),
+                //MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
+                //MetadataReference.CreateFromFile(typeof(Enumerable).Assembly.Location),
+                //MetadataReference.CreateFromFile(typeof(System.Object).Assembly.Location),
+                //MetadataReference.CreateFromFile(typeof(System.String).Assembly.Location),
                 MetadataReference.CreateFromFile(Path.Combine(assemblyPath, "mscorlib.dll")),
                 MetadataReference.CreateFromFile(Path.Combine(assemblyPath, "System.dll")),
                 MetadataReference.CreateFromFile(Path.Combine(assemblyPath, "System.Core.dll")),

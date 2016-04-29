@@ -20,11 +20,6 @@ namespace Cts.csw.Models
             Assembly[] assemblies = new Assembly[]
             {
                 Assembly.LoadFrom(Path.Combine(assemblyPath, "mscorlib.dll")),
-                //Assembly.LoadFrom(typeof(object).Assembly.Location),
-                //Assembly.LoadFrom(typeof(Enumerable).Assembly.Location),
-                //Assembly.LoadFrom(typeof(System.Object).Assembly.Location),
-                //Assembly.LoadFrom(typeof(System.String).Assembly.Location),
-                //Assembly.LoadFrom(Path.Combine(assemblyPath, "mscorlib.dll")),
                 Assembly.LoadFrom(Path.Combine(assemblyPath, "System.dll")),
                 Assembly.LoadFrom(Path.Combine(assemblyPath, "System.Core.dll")),
                 Assembly.LoadFrom(Path.Combine(assemblyPath, "System.IO.dll")),
